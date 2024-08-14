@@ -5,7 +5,7 @@ import {DataTime, generarIDAleatorio} from "../utils.js";
 export const getProductos = async (req, res) => {
   let productos = []
   try {
-    const [rows] = await pool.query("SELECT * FROM productos");
+    const [rows] = await pool.query("SELECT * FROM `productos`");
     rows.map((pac) =>{
       productos.push(pac)
     })
