@@ -12,6 +12,7 @@ export const getProductos = async (req, res) => {
     })
     res.send( {status: 200, message: 'succes', response: productos} );
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ message: "Something goes wrong" });
   }
 };
