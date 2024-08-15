@@ -3,6 +3,7 @@ import {DataTime, generarIDAleatorio} from "../utils.js";
 
 //ver todos los productos
 export const getProductos = async (req, res) => {
+  console.log('ingreso a productos');
   let productos = []
   try {
     const [rows] = await pool.query("SELECT * FROM productos");
