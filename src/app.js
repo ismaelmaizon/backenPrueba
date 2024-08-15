@@ -12,7 +12,7 @@ const app = express();
 const corsOptions = {
   //To allow requests from client
   origin: [
-    "https://backenprueba-production.up.railway.app",
+    "https://beige-buffalo-119903.hostingersite.com",
     "http://localhost:5173",
     "localhost:8080"
   ],
