@@ -9,6 +9,7 @@ import {
 const router = Router();
 
 // GET todos los /productos
+router.get("/prod", (req, res)=>{ res.send({status:200, message: 'probando probando'}) });
 router.get("/productos", getProductos);
 // GET un producto
 router.get("/producto/:idg", getProducto);
