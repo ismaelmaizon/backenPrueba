@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { createLugar, getLugares } from "../controllers/lugares.controller.js";
+import { createLugar, deleteLugar, getLugares } from "../controllers/lugares.controller.js";
 
 const router = Router();
 
@@ -8,6 +8,8 @@ const router = Router();
 router.get("/lugares", getLugares);
 // CREATE lugares
 router.post("/lugares", createLugar);
+// Elimnar Lugar
+router.delete("/lugares/:id", deleteLugar);
 
 
 export default router;

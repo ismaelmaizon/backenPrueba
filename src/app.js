@@ -1,12 +1,17 @@
 import express from "express";
 import morgan from "morgan";
 import cors from 'cors';
+import __dirname  from './utils.js'
+import multer from "multer";
+
+
 
 import productosRoutes from "./routes/productos.routes.js"
 import lugaresRoutes from "./routes/lugares.routes.js"
 import lugaresRoutesProd from "./routes/lugaresProd.routes.js"
 import ventasRoutes from "./routes/ventas.routes.js"
 import tiposRoutes from "./routes/tipos.routes.js"
+
 
 const app = express();
 const corsOptions = {
@@ -20,10 +25,16 @@ const corsOptions = {
   exposedHeaders: ["set-cookie"],
 };
 
+
+
 // Middlewares
+// Configuración para servir archivos estáticos
+app.use('/static', express.static('src/img'));
+//app.use(express.urlencoded({extended:false})) //permite poder entender lo que los formularios me estan enviando
 app.use(cors(corsOptions))
 app.use(morgan("dev"));
 app.use(express.json());
+
 
 // Routes
 app.use("/api/tipos", tiposRoutes);
