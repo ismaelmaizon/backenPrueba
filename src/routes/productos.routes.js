@@ -12,7 +12,6 @@ import multer from 'multer';
 import { v4 as uuidv4 } from 'uuid';
 
 
-
 const router = Router();
 
 // carga de imagen
@@ -28,6 +27,7 @@ const upload = multer({ storage: storage })
 //app.use(multer({ storage: storage }).single('file'))
 
 
+
 // GET todos los /productos
 router.get("/prod", (req, res)=>{ res.send({status:200, message: 'probando probando'}) });
 router.get("/productos", getProductos);
@@ -37,7 +37,7 @@ router.get("/productoimg/:idg", getProductoIms);
 // INSERT un producto
 router.post("/producto", upload.single('file') , createProducto);
 // INSERT imagen a producto
-router.post("/producto", upload.single('file') , addImgProducto);
+router.post("/addimgProduct", upload.single('file') , addImgProducto);
 // DELETE un producto
 router.delete("/producto/:id", deleteProducto);
 

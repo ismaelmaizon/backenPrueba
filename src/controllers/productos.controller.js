@@ -81,9 +81,10 @@ export const getProductoIms = async (req, res) => {
     if (rows.length <= 0) {
       return res.status(404).json({ message: "producto not found" });
     }
-
     res.json(rows);
   } catch (error) {
+    console.log(error);
+    
     return res.status(500).json({ message: "Something goes wrong" });
   }
 };
@@ -91,15 +92,17 @@ export const getProductoIms = async (req, res) => {
 export const addImgProducto = async (req, res) => {
   const file = req.file;
   // Accede a los otros datos del producto enviados en el formulario
-  const {id} = JSON.parse(req.body.id)
+  const id = req.body.id
+  const originId =  id.slice(1, -1);
+  console.log(originId);
   try {
-    console.log(idg);
     const [rows] = await pool.query(
       "INSERT INTO imagenes (IdProduct, url) VALUES (?, ?);",
-      [idg, file.filename]
+      [originId, file.filename]
     );
     res.json(rows);
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ message: "Something goes wrong" });
   }
 };

@@ -11,6 +11,10 @@ import lugaresRoutes from "./routes/lugares.routes.js"
 import lugaresRoutesProd from "./routes/lugaresProd.routes.js"
 import ventasRoutes from "./routes/ventas.routes.js"
 import tiposRoutes from "./routes/tipos.routes.js"
+import logins from "./routes/logins.routes.js"
+//passport
+import passport from 'passport';
+//import { initializePassportJWT } from './passport/passport-jwt.js';
 
 
 const app = express();
@@ -35,8 +39,13 @@ app.use(cors(corsOptions))
 app.use(morgan("dev"));
 app.use(express.json());
 
+//initializePassportJWT()
+app.use(passport.initialize())// de esta manera inicializamos passport
+//recordemos que passport almacena en una session la informacion del usuario por ende debemos usar el siguiente meadleware
+
 
 // Routes
+app.use("/api/logins", logins);
 app.use("/api/tipos", tiposRoutes);
 app.use("/api/productos", productosRoutes);
 app.use("/api/lugares", lugaresRoutes);
