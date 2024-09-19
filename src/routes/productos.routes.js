@@ -10,6 +10,7 @@ import {
 import __dirname  from '../utils.js'
 import multer from 'multer';
 import { v4 as uuidv4 } from 'uuid';
+import { autenticacion } from "../controllers/login.controller.js";
 
 
 const router = Router();
@@ -30,6 +31,8 @@ const upload = multer({ storage: storage })
 
 // GET todos los /productos
 router.get("/prod", (req, res)=>{ res.send({status:200, message: 'probando probando'}) });
+
+
 router.get("/productos", getProductos);
 // GET un producto
 router.get("/producto/:idg", getProducto);

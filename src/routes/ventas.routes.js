@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { registrarVenta, registrarProdVenta, getVentas, getVentaId } from "../controllers/ventas.controller.js";
+import { registrarVenta, registrarProdVenta, getVentas, getVentaId, modVenta } from "../controllers/ventas.controller.js";
 
 
 
@@ -12,5 +12,7 @@ router.get("/getVentaId/:idg", getVentaId)
 
 router.post("/registrarVenta", registrarVenta)
 router.post("/registrarProdVenta", registrarProdVenta)
+
+router.post("/updateVenta", modVenta)
 
 export default router

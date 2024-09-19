@@ -1,7 +1,8 @@
+import { isStringObject } from "util/types";
 import { pool } from "../db.js";
 import { encriptarPass, validarPass } from "../utils.js"
 import jwt from 'jsonwebtoken';
-
+import util from 'util'
 
 export const reg = async (req, res) => {
     const {email, password, rol} = req.body
@@ -24,9 +25,14 @@ export const reg = async (req, res) => {
 
 export const login = async (req, res) => {
     const {email, password} = req.body
+    const e = email.toString()
+    console.log(email);
     console.log(password);
+    console.log(isStringObject(email));
+    console.log(email.toString());
+    
     try{
-        const [row] = await pool.query("SELECT * FROM users WHERE email = (?)", [email]);
+        const [row] = await pool.query("SELECT * FROM users WHERE email = (?)", [e]);
         console.log(row);
         console.log(row[0].clave);
         let resp = await validarPass(password, row[0].clave)
@@ -37,16 +43,30 @@ export const login = async (req, res) => {
         }
         //inicio exitoso
         const id = row[0].id
-        const token = jwt.sign({id: id}, 'decoSecret', {
+        const email = row[0].email
+        const rol = row[0].rol
+        const token = jwt.sign({id: id, email: email , rol: rol}, 'decoSecret', {
             expiresIn: '1h'
         })
+        let tockenRol = 'notView'
+        if (rol == 'admin') {
+            tockenRol = 'view' 
+        }
         console.log(token);
         const cookiesOptions = {
-            maxAge: 120000, 
-            httpOnly: true 
+            maxAge: 900000, 
+            httpOnly: true,
+            secure: false,
+            sameSite: 'lax'
         }
         res.cookie('jwt', token, cookiesOptions)
-        res.status(200).json({message: 'inicio exitoso'} )
+        res.cookie('_UrB', tockenRol, {
+            maxAge: 900000, 
+            httpOnly: false,
+            secure: false,
+            sameSite: 'lax'
+        })
+        res.send({status: 200, message: 'hola'})
     }catch(err){
         console.log(err);
         res.status(500).json({message: 'usuario no entonctrado'} )
@@ -54,3 +74,30 @@ export const login = async (req, res) => {
     }
 };
 
+
+export const autenticacion = async (req, res, next) => {
+    console.log('cookies');
+    console.log(req.cookies.jwt);
+    if(req.cookies.jwt){
+        try{
+            const decodificar = await util.promisify(jwt.verify)(req.cookies.jwt, 'decoSecret')
+            if(decodificar){
+                const [row] = await pool.query("SELECT * FROM users WHERE email = (?)", [decodificar.email]);
+                if(row.length == 0){res.status(401).json({message: 'usuario no encontrado'})}
+                req.user = row
+                console.log('usuario verificado');
+                console.log(row[0]);
+                return next()
+            }
+        }catch(err){
+            res.status(401).json({message: 'problemas con la verificacion del token'})
+        }
+    }else{
+        res.status(401).json({message: 'coockie vencida3'})
+    }
+};
+
+
+export const logout = async (req, res) =>{
+    res.clearCookie('jwl').status(401).json({message: 'Logout'})
+}

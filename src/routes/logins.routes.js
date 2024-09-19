@@ -1,10 +1,12 @@
 import { Router } from "express";
-import { login, reg } from "../controllers/login.controller.js";
+import { login, logout, reg } from "../controllers/login.controller.js";
 
 
 const router = Router()
-//crear nuevo tipo
-router.post('/log', login)
+//registrar usuario
 router.post('/reg', reg)
-
+//loguear usuario
+router.post('/log', login)
+//cerrar sesion
+router.get('/logout', logout)
 export default router
