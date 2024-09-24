@@ -54,14 +54,14 @@ export const login = async (req, res) => {
         }
         console.log(token);
         const cookiesOptions = {
-            maxAge: 900000, 
+            maxAge: 21600000, 
             httpOnly: true,
             secure: false,
             sameSite: 'lax'
         }
         res.cookie('jwt', token, cookiesOptions)
         res.cookie('_UrB', tockenRol, {
-            maxAge: 900000, 
+            maxAge: 21600000, 
             httpOnly: false,
             secure: false,
             sameSite: 'lax'
