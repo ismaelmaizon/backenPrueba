@@ -8,12 +8,12 @@ export const registrarVenta = async (req, res) =>{
     const fecha = DataTime()
     const id_venta = generarIDAleatorioVentas(10)
     const estado = 1
-    const { nombre, apellido, mail, cel } = cliente
-    console.log(id_venta);
+    const { nombre, apellido, email, cel, provincia, localidad, calle, altura } = cliente
+    
     try {
         const [rows] = await pool.query(
-            "INSERT INTO ventas (id_venta, fecha, nombre, apellido, mail, cel, estado, total) VALUES (?, ?, ?, ?, ?, ?, ?, ?);",[
-              id_venta, fecha, nombre, apellido, mail, cel, estado, total]
+            "INSERT INTO ventas (id_venta, fecha, nombre, apellido, email, provincia, localidad, calle, altura, cel, estado, total) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",[
+              id_venta, fecha, nombre, apellido, email, provincia, localidad, calle, parseInt(altura) , cel, estado, total]
           );
         console.log(rows);
         if (rows) {
