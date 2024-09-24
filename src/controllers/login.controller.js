@@ -55,7 +55,7 @@ export const login = async (req, res) => {
         console.log(token);
         const cookiesOptions = {
             maxAge: 21600000, 
-            httpOnly: true,
+            httpOnly: false,
             secure: false,
             sameSite: 'none'
         }
