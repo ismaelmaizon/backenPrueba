@@ -78,6 +78,7 @@ export const login = async (req, res) => {
 export const autenticacion = async (req, res, next) => {
     console.log('cookies');
     console.log(req.cookies.jwt);
+    console.log(req.cookies._UrB);
     if(req.cookies.jwt){
         try{
             const decodificar = await util.promisify(jwt.verify)(req.cookies.jwt, 'decoSecret')
