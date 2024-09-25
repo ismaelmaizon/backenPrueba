@@ -60,9 +60,10 @@ export const login = async (req, res) => {
         }
         res.cookie('jwt', token, cookiesOptions)
         res.cookie('_UrB', tockenRol, {
-            maxAge: 21600000, 
+            maxAge: 21600000,
             httpOnly: false,
-            secure: false,
+            secure: true,
+            sameSite: 'none'
         })
         res.send({status: 200, message: 'hola'})
     }catch(err){
