@@ -46,7 +46,7 @@ export const login = async (req, res) => {
         const email = row[0].email
         const rol = row[0].rol
         const token = jwt.sign({id: id, email: email , rol: rol}, 'decoSecret', {
-            expiresIn: '1h'
+            expiresIn: '6h'
         })
         let tockenRol = 'notView'
         if (rol == 'admin') {
