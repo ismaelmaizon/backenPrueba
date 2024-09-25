@@ -5,7 +5,7 @@ export const createEstado = async (req, res) => {
     const {estado} = req.body
     console.log(estado);
     try{
-        const responses = await pool.query("INSERT INTO Estado (estado) VALUES (?)", [estado]);
+        const responses = await pool.query("INSERT INTO estado (estado) VALUES (?)", [estado]);
         console.log(responses);
         
         res.status(200).json({message: 'estado registrado'} )
@@ -19,7 +19,7 @@ export const createEstado = async (req, res) => {
 export const getEstados = async (req, res) => {
     
     try{
-        const [responses] = await pool.query("SELECT * FROM Estado");
+        const [responses] = await pool.query("SELECT * FROM estado");
         console.log(responses);
         
         res.status(200).json({message: 'Ok', response: responses} )
