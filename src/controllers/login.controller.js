@@ -57,7 +57,7 @@ export const login = async (req, res) => {
             maxAge: 21600000,
             httpOnly: true,
             secure: true, // Solo HTTPS
-            sameSite: 'Lax' // Mitigar ataques CSRF  
+            sameSite: 'None' // Mitigar ataques CSRF  
         }
         res.cookie('jwt', token, cookiesOptions)
         res.send({status: 200, message: 'Bien venido', response: tockenRol})
